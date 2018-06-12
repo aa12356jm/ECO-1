@@ -68,8 +68,8 @@ int main()
 
 	//***********reading frome video**********************************
 	cv::namedWindow(WIN_NAME);
-	cv::VideoCapture capture;
-	capture.open("F:\\tmp.avi");
+	cv::VideoCapture capture(0);
+	//capture.open("F:\\tmp.avi");
 	if (!capture.isOpened())
 	{
 		std::cout << "capture device failed to open!" << std::endl;
@@ -80,14 +80,15 @@ int main()
 	cvNamedWindow(WIN_NAME.c_str(), CV_WINDOW_AUTOSIZE);
 	cvSetMouseCallback(WIN_NAME.c_str(), mouseHandler, NULL);
 	
-	capture >> frame;
-	cv::Mat temp;
-	frame.copyTo(temp);
+	//capture >> frame;
+	//cv::Mat temp;
+	//frame.copyTo(temp);
 	while (!gotBB)
 	{
+		capture >> frame;
 		drawBox(frame, box, cv::Scalar(0, 0, 255), 1);
 		cv::imshow(WIN_NAME, frame);
-		temp.copyTo(frame);
+		//temp.copyTo(frame);
 		if (cvWaitKey(20) == 27)
 			return 1;
 	}
@@ -95,10 +96,11 @@ int main()
 	cvSetMouseCallback(WIN_NAME.c_str(), NULL, NULL);
 	//box.x = 100; box.y = 150; box.width = 82; box.height = 211;
 
-	ECO Eco(1, proto, model, mean_file,mean_yml);
+	ECO Eco(0, proto, model, mean_file,mean_yml);
 	Eco.init(frame, box);
 	int idx = 0;
-	while (idx++<100)
+	//while (idx++<100)
+	while (1)
 	{
 		capture >> frame;
 		//capture >> frame;

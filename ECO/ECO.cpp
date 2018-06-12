@@ -4,6 +4,7 @@
 #include <caffe\util\io.hpp>
 #include <caffe\caffe.hpp>
 #include "ECO.h"
+#define UseGPU
 
 namespace eco{
 
@@ -36,7 +37,7 @@ namespace eco{
 			useDeepFeature = puseDeepFeature;
 			if (proto.empty() || model.empty())
 				assert("the proto or model is empty");
-#ifdef  GPU
+#ifdef  UseGPU
 			Caffe::set_mode(Caffe::GPU);
 			Caffe::SetDevice(0);
 #else
